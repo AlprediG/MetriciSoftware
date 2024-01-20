@@ -4,7 +4,8 @@ import com.gmail.merikbest2015.ecommerce.constants.ErrorMessage;
 import com.gmail.merikbest2015.ecommerce.domain.Order;
 import com.gmail.merikbest2015.ecommerce.domain.Perfume;
 import com.gmail.merikbest2015.ecommerce.domain.User;
-import com.gmail.merikbest2015.ecommerce.dto.request.OrderRequest;
+import com.gmail.merikbest2015.ecommerce.dto.request.OrderRequestPartOne;
+import com.gmail.merikbest2015.ecommerce.dto.request.OrderRequestPartTwo;
 import com.gmail.merikbest2015.ecommerce.repository.OrderRepository;
 import com.gmail.merikbest2015.ecommerce.service.OrderService;
 import com.gmail.merikbest2015.ecommerce.service.UserService;
@@ -51,8 +52,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public Long postOrder(User user, OrderRequest orderRequest) {
-        Order order = modelMapper.map(orderRequest, Order.class);
+    public Long postOrder(User user, OrderRequestPartOne orderRequestPartOne, OrderRequestPartTwo orderRequestPartTwo) {
+        Order order = new Order();
+        modelMapper.map(orderRequestPartOne,order);
+        modelMapper.map(orderRequestPartTwo,order);
         order.setUser(user);
         order.getPerfumes().addAll(user.getPerfumeList());
         orderRepository.save(order);

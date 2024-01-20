@@ -3,7 +3,8 @@ package com.gmail.merikbest2015.ecommerce.service;
 import com.gmail.merikbest2015.ecommerce.domain.Order;
 import com.gmail.merikbest2015.ecommerce.domain.Perfume;
 import com.gmail.merikbest2015.ecommerce.domain.User;
-import com.gmail.merikbest2015.ecommerce.dto.request.OrderRequest;
+import com.gmail.merikbest2015.ecommerce.dto.request.OrderRequestPartOne;
+import com.gmail.merikbest2015.ecommerce.dto.request.OrderRequestPartTwo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -17,5 +18,5 @@ public interface OrderService {
 
     Page<Order> getUserOrdersList(Pageable pageable);
 
-    Long postOrder(User user, OrderRequest orderRequest);
+    Long postOrder(User user, OrderRequestPartOne orderRequestPartOne, OrderRequestPartTwo orderRequestPartTwo);
 }

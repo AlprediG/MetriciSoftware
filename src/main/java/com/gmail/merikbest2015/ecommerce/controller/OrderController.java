@@ -3,7 +3,8 @@ package com.gmail.merikbest2015.ecommerce.controller;
 import com.gmail.merikbest2015.ecommerce.constants.Pages;
 import com.gmail.merikbest2015.ecommerce.constants.PathConstants;
 import com.gmail.merikbest2015.ecommerce.domain.User;
-import com.gmail.merikbest2015.ecommerce.dto.request.OrderRequest;
+import com.gmail.merikbest2015.ecommerce.dto.request.OrderRequestPartOne;
+import com.gmail.merikbest2015.ecommerce.dto.request.OrderRequestPartTwo;
 import com.gmail.merikbest2015.ecommerce.service.OrderService;
 import com.gmail.merikbest2015.ecommerce.service.UserService;
 import com.gmail.merikbest2015.ecommerce.utils.ControllerUtils;
@@ -47,12 +48,12 @@ public class OrderController {
     }
 
     @PostMapping
-    public String postOrder(@Valid OrderRequest orderRequest, BindingResult bindingResult, Model model) {
+    public String postOrder(@Valid OrderRequestPartOne orderRequestPartOne, OrderRequestPartTwo orderRequestPartTwo, BindingResult bindingResult, Model model) {
         User user = userService.getAuthenticatedUser();
         if (controllerUtils.validateInputFields(bindingResult, model, "perfumes", user.getPerfumeList())) {
             return Pages.ORDERING;
         }
-        model.addAttribute("orderId", orderService.postOrder(user, orderRequest));
+        model.addAttribute("orderId", orderService.postOrder(user, orderRequestPartOne,orderRequestPartTwo));
         return Pages.ORDER_FINALIZE;
     }
 }
